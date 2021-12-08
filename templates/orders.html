@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Light Bootstrap Dashboard - Free Bootstrap 4 Admin Dashboard by Creative Tim</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/fontawesome.min.css" />
+    <!-- CSS Files -->
+    <link href="http://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../static/css/main.css" rel="stylesheet" />
+    <link href="../static/css/icon.scss" rel="stylesheet" />
+</head>
+
+<body>
+    
+    <div class="wrapper">
+        <div class="sidebar" data-image="../static/assets/img/sidebar-5.jpg" data-color="blue">
+            <div class="sidebar-wrapper" >
+                <div class="logo">
+                    <a href="http://www.creative-tim.com" class="simple-text">
+                        Creative Tim
+                    </a>
+                </div>
+                <ul class="nav">
+                    <li>
+                        <a class="nav-link" href="/admin">
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="/admin/show_users">
+                            <i class="nc-icon nc-circle-09"></i>
+                            <p>Show list users</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="/admin/show_accounts">
+                            <i class="nc-icon nc-notes"></i>
+                            <p>Show list accounts</p>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/admin/show_orders">
+                            <i class="nc-icon nc-notes"></i>
+                            <p>Show list orders</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel" style="background-color: rgba(189, 189, 189, 0.7);">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg " color-on-scroll="500" style="background-color: rgba(0, 26, 255, 0.753);" >
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#pablo" style="color: white;"> Account management </a>
+                    <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown" >
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                    <span class="no-icon">Account</span>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                                    <li><a class="dropdown-item" href="#">Change Information</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">
+                                    <span class="no-icon">Log out</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- End Navbar -->
+            <div class="content" style="width: fit-content;margin-left: -15px;margin-top: -15px;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card strpied-tabled-with-hover">
+                                <div class="card-header ">
+                                    <h3 class="card-title" style="text-align: center;">List orders</h3>
+                                </div>
+                                <div class="card-body table-full-width table-responsive" style="width: 1630px;">
+                                    <button type="button" href="" class="btn btn-green btn-block" data-toggle="modal" data-target="#myModal"style="width: 120px;"><i class="nc-icon nc-simple-add" style="position: relative;top: 3px"></i> Add order</button>
+
+                                    <!-- Modal -->
+                                    <div class="container">
+                                        <!-- The Modal -->
+                                        <div class="modal" id="myModal" >
+                                            <div class="modal-dialog">
+                                                <div class="modal-content" style="width:1000px;position: relative;top: -500px;left:-200px; padding: 20px 20px 50px 50px;">
+                                                    <h3>Add user</h3>
+                                                    <form method="POST" action="/admin/add_user" style="max-width: 650px;padding-top:30px">
+                                                        <div class="form-group">
+                                                            <label for="ao_account" class="control-label" style="margin-left: 70px;">Account: </label>
+                                                            <div class="input-group">
+                                                                <select class="form-control" style="max-width: 500px;margin-left: 200px;" name="ao_account" id="ao_account" placeholder="njnjnfjs">
+                                                                    {% for account in accounts %}
+                                                                    <option value="{{account.email}}">{{account.email}}</option>
+                                                                    {% endfor %}
+                                                                </select>
+                                                            </div>                              
+                                                        </div>
+                            
+                                                        <div class="form-group">
+                                                            <label for="ao_designid" class="control-label" style="margin-left: 70px;">User name: </label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" style="max-width: 500px;margin-left: 200px;" name="ao_designid" id="ao_designid" placeholder="Enter design ID" >
+                                                            </div>                              
+                                                        </div>
+                                
+                                                        <div class="form-group">
+                                                            <label for="ao_createdate" class="control-label" style="margin-left: 70px;">Create date: </label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" style="max-width: 500px;margin-left: 200px;" name="ao_createdate" id="ao_createdate" placeholder="Enter order date" >
+                                                            </div>                              
+                                                        </div>
+                            
+                                                        <div class="form-group">
+                                                            <label for="ao_itemname" class="control-label" style="margin-left: 70px;">Item name: </label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" style="max-width: 500px;margin-left: 200px;" name="ao_itemname" id="ao_itemname" placeholder="Enter item's name" >
+                                                            </div>                              
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="ao_asin" class="control-label" style="margin-left: 70px;">Asin: </label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" style="max-width: 500px;margin-left: 200px;" name="ao_asin" id="ao_asin" placeholder="Enter asin" >
+                                                            </div>                              
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="ao_shipdate" class="control-label" style="margin-left: 70px;">Ship date: </label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" style="max-width: 500px;margin-left: 200px;" name="ao_shipdate" id="ao_shipdate" placeholder="Enter ship date" >
+                                                            </div>                              
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="ao_deliverydate" class="control-label" style="margin-left: 70px;">Delevery date: </label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" style="max-width: 500px;margin-left: 200px;" name="ao_itemname" id="ao_itemname" placeholder="Enter delivery date" >
+                                                            </div>                              
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="ao_quantity" class="control-label" style="margin-left: 70px;">Quantity: </label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" style="max-width: 500px;margin-left: 200px;" name="ao_quantity" id="ao_quantity" placeholder="Enter quantity of item" >
+                                                            </div>                              
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="ao_custominfor" class="control-label" style="margin-left: 70px;">Customization information: </label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" style="max-width: 500px;margin-left: 200px;" name="ao_custominfor" id="ao_custominfor" placeholder="Enter customization information" >
+                                                            </div>                              
+                                                        </div>
+                                                        
+                                                        <div class="form-group">
+                                                            <label for="ao_clientsinfor" class="control-label" style="margin-left: 70px;">Clients information: </label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" style="max-width: 500px;margin-left: 200px;" name="ao_clientsinfor" id="ao_clientsinfor" placeholder="Enter clients information" >
+                                                            </div>                              
+                                                        </div>
+                                                        
+                                                        <div class="form-group">
+                                                            <label for="ao_supplier" class="control-label" style="margin-left: 70px;">Supplier: </label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" style="max-width: 500px;margin-left: 200px;" name="ao_supplier" id="ao_supplier" placeholder="Enter supplier" >
+                                                            </div>                              
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="ao_supplierid" class="control-label" style="margin-left: 70px;">Supplier ID: </label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" style="max-width: 500px;margin-left: 200px;" name="ao_supplierid" id="ao_supplierid" placeholder="Enter supplier's ID" >
+                                                            </div>                              
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="ao_status" class="control-label" style="margin-left: 70px;">Status: </label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" style="max-width: 500px;margin-left: 200px;" name="ao_status" id="ao_status" placeholder="Enter status" >
+                                                            </div>                              
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="ao_tracknum" class="control-label" style="margin-left: 70px;">Tracking number: </label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" style="max-width: 500px;margin-left: 200px;" name="ao_tracknum" id="ao_tracknum" placeholder="Enter tracking number" >
+                                                            </div>                              
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="ao_paydate" class="control-label" style="margin-left: 70px;">Pay date: </label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" style="max-width: 500px;margin-left: 200px;" name="ao_paydate" id="ao_paydate" placeholder="Enter pay date" >
+                                                            </div>                              
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="ao_price" class="control-label" style="margin-left: 70px;">Price: </label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" style="max-width: 500px;margin-left: 200px;" name="ao_price" id="ao_price" placeholder="Enter price" >
+                                                            </div>                              
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="ao_orderprice" class="control-label" style="margin-left: 70px;">Order price: </label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" style="max-width: 500px;margin-left: 200px;" name="ao_orderprice" id="ao_orderprice" placeholder="Enter order price" >
+                                                            </div>                              
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="ao_note" class="control-label" style="margin-left: 70px;">Note: </label>
+                                                            <div class="input-group">
+                                                                <textarea class="form-control" style="max-width: 500px;margin-left: 200px;" name="ao_note" id="ao_note" placeholder="Enter note" ></textarea>
+                                                            </div>                              
+                                                        </div>
+
+                                                        <div class="input-group">
+                                                            <div class="submitbutton">
+                                                                <a type="button" data-dismiss="modal" class="btn btn-primary btn-block cancel-btn" style="margin-left:50px">Cancel</a>
+                                                            </div>
+                            
+                                                            <div class="submitbutton">
+                                                                <button type="submit" class="btn btn-primary btn-block submit-btn" style="margin-left:200px;" onclick="return confirm('Confirm to add the user !!!')">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                              
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>   
+                                </div>
+                                
+                                    <table class="table table-fixed" id="table1" cellpadding="0">
+                                        <thead>
+                                            <th>ID</th>
+                                            <th>Account</th>
+                                            <th>Design ID</th>
+                                            <th>Create date</th>
+                                            <th>Item name</th>
+                                            <th>Asin</th>
+                                            <th>Ship date</th>
+                                            <th>Delivery date</th>         
+                                            <th>Quantity</th>                                   
+                                            <th>Customization information</th>   
+                                            <th>Clients information</th>     
+                                            <th>Supplier</th>
+                                            <th>Supplier order ID</th>
+                                            <th>Status</th>   
+                                            <th>Tracking number</th>
+                                            <th>Pay date</th>   
+                                            <th>Note</th>   
+                                            <th>Price</th>   
+                                            <th>Cost</th>
+                                            <th>Order price</th>     
+                                            <th>Profits</th> 
+                                            <th>Interest rate</th>  
+                                            <th>Edit / Delete</th>  
+                                        </thead>
+                                        <tbody style="height: 500px;">
+                                            {% for order in orders %}
+                                            <form method="POST" action="/edit_order/id={{order.id}}">
+                                            <tr>
+                                                <td><input type="text" class="form-control" style="max-width: 185px;" id="eo_id" name="eo_id" placeholder="" value="{{order.id}}"></td>
+                                                <td><input type="email" class="form-control" style="max-width: 185px;" name="eo_account" id="eo_account" placeholder="" value="{{order.account}}"></td>
+                                                <td><input type="text" class="form-control" style="max-width: 185px;" name="eo_designid" id="eo_designid" placeholder="" value="{{order.design_id}}"></td>
+                                                <td><input type="text" class="form-control" style="max-width: 185px;" name="eo_createdate" id="eo_createdate" placeholder="" value="{{order.create_date}}"></td>
+                                                <td><input type="text" class="form-control" style="max-width: 185px;" name="eo_itemname" id="eo_itemname" placeholder="" value="{{order.item_name}}"></td>
+                                                <td><input type="text" class="form-control" style="max-width: 185px;" name="eo_asin" id="eo_asin" placeholder="" value="{{order.asin}}"></td>
+                                                <td><input type="text" class="form-control" style="max-width: 185px;" name="eo_shipdate" id="eo_shipdate" placeholder="" value="{{order.ship_date}}"></td>
+                                                <td><input type="text" class="form-control" style="max-width: 185px;" name="eo_deliverydate" id="eo_deliverydate" placeholder="" value="{{order.delivery_date}}"></td>
+                                                <td><input type="text" class="form-control" style="max-width: 185px;" name="eo_quantity" id="eo_quantity" placeholder="" value="{{order.quantity}}"></td>
+                                                <td><input type="text" class="form-control" style="max-width: 185px;" name="eo_custominfor" id="eo_custominfor" placeholder="" value="{{order.custom_infor}}"></td>
+                                                <td><input type="text" class="form-control" style="max-width: 185px;" name="eo_clientsinfor" id="eo_clientsinfor" placeholder="" value="{{order.clients_infor}}"></td>
+                                                <td><input type="text" class="form-control" style="max-width: 185px;" name="eo_supplier" id="eo_supplier" placeholder="" value="{{order.supplier}}"></td>
+                                                <td><input type="text" class="form-control" style="max-width: 185px;" name="eo_supplierid" id="eo_supplierid" placeholder="" value="{{order.supplier_id}}"></td>
+                                                <td><input type="text" class="form-control" style="max-width: 185px;" name="eo_status" id="eo_status" placeholder="" value="{{order.design_id}}">{{order.status}}</td>
+                                                <td><input type="text" class="form-control" style="max-width: 185px;" name="eo_trackingnum" id="eo_trackingnum" placeholder="" value="{{order.tracking_number}}"></td>
+                                                <td><input type="text" class="form-control" style="max-width: 185px;" name="eo_paydate" id="eo_paydate" placeholder="" value="{{order.pay_date}}"></td>
+                                                <td><input type="text" class="form-control" style="max-width: 185px;" name="eo_note" id="eo_note" placeholder="" value="{{order.note}}"></td>
+                                                <td><input type="text" class="form-control" style="max-width: 185px;" name="eo_price" id="eo_price" placeholder="" value="{{order.price}}"></td>
+                                                <td><input type="text" class="form-control" style="max-width: 185px;" name="eo_designid" id="eo_designid" placeholder="" value="{{order.cost}}"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td id="edit_delete">
+                                                    <input type="submit" value="Save" onclick="return confirm('Confirm to save the account ?') " class="btnshow ">
+                                                    <form action="/delete_order/id={{order.id}}" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="submit" value="Delete" onclick="return confirm('Confirm to delete the account ?') " class="btnshow btn-danger">
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        </form>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid" >
+                <nav>
+                    <div class="copyright text-center">
+                        ©
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>
+                        <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                    </div>
+                </nav>
+            </div>
+        </footer>
+    </div>
+</div>
+
+</body>
+<!--   Core JS Files   -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
+<script src="http://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/fontawesome.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.4/umd/popper.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" type="text/javascript"></script>
+<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>
+<!--  Google Maps Plugin    -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!--  Chartist Plugin  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.11.4/chartist.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/js/bootstrap-notify.js"></script>
+<!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
+<script src="../static/js/main.js"></script>
+
+
+</html>
